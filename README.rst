@@ -3,7 +3,7 @@ Introduction
 
 
 .. image:: https://readthedocs.org/projects/circuitpython-slider/badge/?version=latest
-    :target: https://circuitpython-slider.readthedocs.io/
+    :target: https://circuitpython-slider.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
 
