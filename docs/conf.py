@@ -28,10 +28,10 @@ extensions = [
 autodoc_mock_imports = [
     "digitalio",
     "vectorio",
-    'adafruit_display_shapes',
+    "adafruit_display_shapes",
     "bitmaptools",
     "busio",
-    'adafruit_touchscreen',
+    "adafruit_touchscreen",
     "adafruit_display_text",
     "displayio",
 ]
