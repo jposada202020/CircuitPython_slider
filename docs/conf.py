@@ -34,7 +34,7 @@ autodoc_mock_imports = [
     "adafruit_touchscreen",
     "adafruit_imageload",
     "adafruit_display_text",
-    'adafruit_displayio_layout',
+    "adafruit_displayio_layout",
     "bitmaptools",
 ]
 
