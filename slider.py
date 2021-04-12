@@ -189,6 +189,7 @@ class Slider(Widget, Control):
 
         self._height = self.height
 
+        # pylint: disable=access-member-before-definition)
         if self._width is None:
             self._width = 50
         else:
