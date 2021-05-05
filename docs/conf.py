@@ -33,12 +33,17 @@ autodoc_mock_imports = [
     "busio",
     "adafruit_touchscreen",
     "adafruit_display_text",
+    "adafruit_displayio_layout",
     "displayio",
 ]
 
 
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3.4", None),
+    "adafruit_displayio_layout": (
+        "https://circuitpython.readthedocs.io/projects/displayio-layout/en/latest/",
+        None,
+    ),
     "CircuitPython": ("https://circuitpython.readthedocs.io/en/latest/", None),
 }
 
