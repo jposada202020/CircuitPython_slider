@@ -33,7 +33,6 @@ autodoc_mock_imports = [
     "busio",
     "adafruit_touchscreen",
     "adafruit_display_text",
-    "adafruit_displayio_layout",
     "displayio",
 ]
 
