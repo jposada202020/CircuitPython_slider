@@ -32,7 +32,7 @@ setup(
     url="https://github.com/jposada202020/CircuitPython_slider.git",
     # Author details
     author="Jose David M.",
-    author_email="",
+    author_email="slider@mailmeto.mozmail.com",
     install_requires=["Adafruit-Blinka"],
     # Choose your license
     license="MIT",
@@ -51,5 +51,5 @@ setup(
     keywords="adafruit blinka circuitpython micropython slider widget sensor displayio",
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
-    py_modules=["slider"],
+    py_modules=["circuitpytho_slider"],
 )
