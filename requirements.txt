@@ -4,4 +4,3 @@
 
 Adafruit-Blinka
 Adafruit-Blinka-Displayio
-Adafruit-CircuitPython-Displayio-Layout

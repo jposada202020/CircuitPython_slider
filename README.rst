@@ -37,7 +37,7 @@ Usage Example
 .. image:: https://raw.githubusercontent.com/jposada202020/CircuitPython_slider/main/docs/slider.png
 
 
-Please see the ``slider_simlpetest.py`` example for initial reference
+Please see the ``slider_simpletest.py`` example for initial reference
 
 
 Contributing

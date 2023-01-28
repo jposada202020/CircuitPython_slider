@@ -42,9 +42,6 @@ try:
 except ImportError:
     pass
 
-__version__ = "0.0.0-auto.0"
-__repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_DisplayIO_Layout.git"
-
 
 class Slider(Widget, Control):
     """
@@ -90,13 +87,13 @@ class Slider(Widget, Control):
 
         from adafruit_displayio_layout.widgets.slider import Slider
 
-    Now you can create an Slider at pixel position x=20, y=30 using:
+    Now you can create a Slider at pixel position x=20, y=30 using:
 
     .. code-block:: python
 
         my_slider=Slider(x=20, y=30)
 
-    Once you setup your display, you can now add ``my_slider`` to your display using:
+    Once your setup your display, you can now add ``my_slider`` to your display using:
 
     .. code-block:: python
 
