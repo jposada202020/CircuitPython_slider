@@ -51,5 +51,5 @@ setup(
     keywords="adafruit blinka circuitpython micropython slider widget sensor displayio",
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
-    py_modules=["circuitpytho_slider"],
+    py_modules=["circuitpython_slider"],
 )
