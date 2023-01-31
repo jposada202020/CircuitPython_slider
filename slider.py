@@ -46,7 +46,6 @@ __version__ = "0.0.0-auto.0"
 __repo__ = "https://github.com/jposada202020/CircuitPython_slider.git"
 
 
-
 class Slider(Widget, Control):
     """
 
