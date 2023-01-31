@@ -41,8 +41,7 @@ try:
     from typing import Tuple
 except ImportError:
     pass
-  
-  
+
 __version__ = "0.0.0-auto.0"
 __repo__ = "https://github.com/jposada202020/CircuitPython_slider.git"
 
