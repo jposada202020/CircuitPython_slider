@@ -52,29 +52,30 @@ class Slider(Widget, Control):
     :param int x: pixel position, defaults to 0
     :param int y: pixel position, defaults to 0
     :param int width: width of the slider in pixels. It is recommended to use 100
-     the height will auto-size relative to the width, defaults to 100
+     the height will auto-size relative to the width. Defaults to :const:`100`
     :param int height: height of the slider in pixels, defaults to 40 pixels
     :param int touch_padding: the width of an additional border surrounding the switch
      that extends the touch response boundary, defaults to 0
 
     :param anchor_point: starting point for the annotation line, where ``anchor_point`` is
      an (A,B) tuple in relative units of the size of the widget, for example (0.0, 0.0) is
-     the upper left corner, and (1.0, 1.0) is the lower      right corner of the widget.
-     If ``anchor_point`` is `None`, then ``anchored_position`` is used to set the
-     annotation line starting point, in widget size relative units (default is (0.0, 0.0)).
+     the upper left corner, and (1.0, 1.0) is the lower right corner of the widget.
+     If :attr:`anchor_point` is `None`, then :attr:`anchored_position` is used to set the
+     annotation line starting point, in widget size relative units.
+     Defaults to :const:`(0.0, 0.0)`
     :type anchor_point: Tuple[float, float]
 
     :param anchored_position: pixel position starting point for the annotation line
-     where ``anchored_position`` is an (x,y) tuple in pixel units relative to the
+     where :attr:`anchored_position` is an (x,y) tuple in pixel units relative to the
      upper left corner of the widget, in pixel units (default is None).
     :type anchored_position: Tuple[int, int]
 
     :param fill_color: (*RGB tuple or 24-bit hex value*) slider fill color, default
-     is ``(66, 44, 66)`` gray.
+     is :const:`(66, 44, 66)` gray.
     :param outline_color: (*RGB tuple or 24-bit hex value*) slider outline color,
-     default is ``(30, 30, 30)`` dark gray.
+     default is :const:`(30, 30, 30)` dark gray.
     :param background_color: (*RGB tuple or 24-bit hex value*) background color,
-     default is ``(255, 255, 255)`` white
+     default is :const:`(255, 255, 255)` white
 
     :param int switch_stroke: outline stroke width for the switch and background, in pixels,
      default is 2
@@ -83,7 +84,7 @@ class Slider(Widget, Control):
 
     **Quickstart: Importing and using Slider**
 
-    Here is one way of importing the ``Slider`` class so you can use it as
+    Here is one way of importing the `Slider` class so you can use it as
     the name ``Slider``:
 
     .. code-block:: python
@@ -124,20 +125,20 @@ class Slider(Widget, Control):
     The ``Slider`` widget has some options for controlling its position, visible appearance,
     and value through a collection of input variables:
 
-        - **position**: ``x``, ``y`` or ``anchor_point`` and ``anchored_position``
+        - **position**: :const:`x`, ``y`` or ``anchor_point`` and ``anchored_position``
 
-        - **size**: ``width`` and ``height`` (recommend to leave ``height`` = None to use
+        - **size**: :const:`width` and ``height`` (recommend to leave ``height`` = None to use
           preferred aspect ratio)
 
-        - **switch color**: ``fill_color``, ``outline_color``
+        - **switch color**: :const:`fill_color`, :const:`outline_color`
 
-        - **background color**: ``background_color``
+        - **background color**: :const:`background_color`
 
-        - **linewidths**: ``switch_stroke``
+        - **linewidths**: :const:`switch_stroke`
 
         - **value**: Set ``value`` to the initial value (True or False)
 
-        - **touch boundaries**: ``touch_padding`` defines the number of additional pixels
+        - **touch boundaries**: :attr:`touch_padding` defines the number of additional pixels
           surrounding the switch that should respond to a touch.  (Note: The ``touch_padding``
           variable updates the ``touch_boundary`` Control class variable.  The definition of
           the ``touch_boundary`` is used to determine the region on the Widget that returns
@@ -155,6 +156,15 @@ class Slider(Widget, Control):
 
 
     """
+
+    # TODO: [ ] graphics: The slider can go outside the backgroundbox’s             [BUG]
+    #       [ ] range, if slid all the way to the right side.touch behavior:
+    #           The slider does not “center” on the touch point                    [IMPROVEMENT]
+    #       [ ] Touch_Down vs Touch_Move                                           [LONG-THERM]
+    #           Not designed as drag and move. Is desired like
+    #           this to point and select. Maybe could be a parameter
+    #       [ ] Touch MOVE outside box                                              [IMPROVEMENT]
+    #       [ ] Slow Down With movement. No design to act as drag and move          [LONG-THERM]
 
     # pylint: disable=too-many-instance-attributes, too-many-arguments, too-many-locals
     # pylint: disable=too-many-branches, too-many-statements
@@ -190,8 +200,9 @@ class Slider(Widget, Control):
         self._height = self.height
 
         # pylint: disable=access-member-before-definition)
+
         if self._width is None:
-            self._width = 50
+            self._width = 100
         else:
             self._width = self.width
 
@@ -288,7 +299,7 @@ class Slider(Widget, Control):
         # Get the position offset from the motion function
         x_offset, y_offset = self._get_offset_position(position)
 
-        # Update the switch and text x- and y-positions
+        # Update the switch x- and y-positions
         self._switch_handle.x = self._switch_initial_x + x_offset
         self._switch_handle.y = self._switch_initial_y + y_offset
 
@@ -297,10 +308,14 @@ class Slider(Widget, Control):
         Manages internal logic when widget is selected
         """
 
-        touch_x = touch_point[0] - self.x
-        touch_y = touch_point[1] - self.y
+        if touch_point[0] <= self.x + self._knob_width:
+            print("maayor", touch_point[0])
+            touch_x = touch_point[0] - self.x
+        else:
+            print("menor", touch_point[0])
+            touch_x = touch_point[0] - self.x - self._knob_width
 
-        self._switch_handle.x = touch_x
+        touch_y = touch_point[1] - self.y
 
         super().selected((touch_x, touch_y, 0))
         return self._switch_handle.x

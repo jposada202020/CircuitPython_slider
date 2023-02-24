@@ -40,6 +40,10 @@ autodoc_mock_imports = [
 
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3.4", None),
+    "adafruit_displayio_layout": (
+        "https://circuitpython.readthedocs.io/projects/displayio-layout/en/latest/",
+        None,
+    ),
     "CircuitPython": ("https://circuitpython.readthedocs.io/en/latest/", None),
 }
 
