@@ -1,6 +1,5 @@
-# SPDX-FileCopyrightText: 2017 Scott Shawcroft, written for Adafruit Industries
-# SPDX-FileCopyrightText: Copyright (c) 2021 Alec Delaney
+# SPDX-FileCopyrightText: 2023 Jose D. Montoya
 #
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: Unlicense
 
-sphinx>=4.0.0
+sphinx>=6.0.0
