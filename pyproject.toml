@@ -39,7 +39,7 @@ classifiers = [
 dynamic = ["dependencies", "optional-dependencies"]
 
 [tool.setuptools]
-py-modules = ["circuitPython_Slider"]
+py-modules = ["slider"]
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
