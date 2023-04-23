@@ -26,7 +26,7 @@ ts = adafruit_touchscreen.Touchscreen(
 # Create the slider
 my_slider = Slider(20, 30)
 
-my_group = displayio.Group(max_size=5)
+my_group = displayio.Group()
 my_group.append(my_slider)
 
 # Add my_group to the display

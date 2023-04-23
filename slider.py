@@ -110,7 +110,7 @@ class Slider(Widget, Control):
     .. code-block:: python
 
         my_slider= Slider(20, 30)
-        my_group = displayio.Group(max_size=10) # make a group that can hold 10 items
+        my_group = displayio.Group() # make a group
         my_group.append(my_slider) # Add my_slider to the group
 
         #
@@ -185,8 +185,7 @@ class Slider(Widget, Control):
     ):
 
         Widget.__init__(
-            self, x=x, y=y, height=height, width=width, **kwargs, max_size=4
-        )
+            self, x=x, y=y, height=height, width=width, **kwargs)
         Control.__init__(self)
 
         self._knob_width = height // 2
@@ -317,7 +316,8 @@ class Slider(Widget, Control):
 
         touch_y = touch_point[1] - self.y
 
-        super().selected((touch_x, touch_y, 0))
+        self.selected((touch_x, touch_y, 0))
+        self._switch_handle.x = touch_x
         return self._switch_handle.x
 
     def when_inside(self, touch_point):
@@ -332,7 +332,7 @@ class Slider(Widget, Control):
         )  # adjust touch position for the local position
         touch_y = touch_point[1] - self.y
 
-        return super().contains((touch_x, touch_y, 0))
+        return self.contains((touch_x, touch_y, 0))
 
     @property
     def value(self):
