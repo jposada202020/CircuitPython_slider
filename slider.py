@@ -184,8 +184,7 @@ class Slider(Widget, Control):
         **kwargs,
     ):
 
-        Widget.__init__(
-            self, x=x, y=y, height=height, width=width, **kwargs)
+        Widget.__init__(self, x=x, y=y, height=height, width=width, **kwargs)
         Control.__init__(self)
 
         self._knob_width = height // 2
