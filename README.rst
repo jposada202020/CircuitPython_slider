@@ -48,13 +48,6 @@ Usage Example
 Please see the ``slider_simpletest.py`` example for initial reference
 
 
-Contributing
-============
-
-Contributions are welcome! Please read our `Code of Conduct
-<https://github.com/jposada202020/CircuitPython_slider/blob/main/CODE_OF_CONDUCT.md>`_
-before contributing to help this project stay welcoming.
-
 Documentation
 =============
 

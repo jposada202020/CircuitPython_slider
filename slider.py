@@ -307,10 +307,8 @@ class Slider(Widget, Control):
         """
 
         if touch_point[0] <= self.x + self._knob_width:
-            print("maayor", touch_point[0])
             touch_x = touch_point[0] - self.x
         else:
-            print("menor", touch_point[0])
             touch_x = touch_point[0] - self.x - self._knob_width
 
         touch_y = touch_point[1] - self.y
