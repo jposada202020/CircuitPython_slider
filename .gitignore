@@ -1,18 +1,15 @@
-# SPDX-FileCopyrightText: 2017 Scott Shawcroft, written for Adafruit Industries
+# SPDX-FileCopyrightText: 2023 Jose D. Montoya
 #
-# SPDX-License-Identifier: Unlicense
+# SPDX-License-Identifier: MIT
 
 *.mpy
-.idea
 __pycache__
-_build
 *.pyc
+_build
+*.egg-info
 .env
-.python-version
-build*/
-bundles
+.venv
 *.DS_Store
-.eggs
-dist
-**/*.egg-info
+.idea
 .vscode
+*~

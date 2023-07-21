@@ -34,7 +34,6 @@ display.show(my_group)
 
 # Start the main loop
 while True:
-
     p = ts.touch_point  # get any touches on the screen
 
     if p:  # Check each slider if the touch point is within the slider touch area

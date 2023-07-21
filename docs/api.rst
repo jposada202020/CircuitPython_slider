@@ -1,5 +1,5 @@
-Slider Library
-===============
+CircuitPython Slider Library
+=============================
 
 .. automodule:: slider
    :members:

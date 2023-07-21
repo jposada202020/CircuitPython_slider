@@ -157,17 +157,6 @@ class Slider(Widget, Control):
 
     """
 
-    # TODO: [ ] graphics: The slider can go outside the backgroundbox’s             [BUG]
-    #       [ ] range, if slid all the way to the right side.touch behavior:
-    #           The slider does not “center” on the touch point                    [IMPROVEMENT]
-    #       [ ] Touch_Down vs Touch_Move                                           [LONG-THERM]
-    #           Not designed as drag and move. Is desired like
-    #           this to point and select. Maybe could be a parameter
-    #       [ ] Touch MOVE outside box                                              [IMPROVEMENT]
-    #       [ ] Slow Down With movement. No design to act as drag and move          [LONG-THERM]
-
-    # pylint: disable=too-many-instance-attributes, too-many-arguments, too-many-locals
-    # pylint: disable=too-many-branches, too-many-statements
     def __init__(
         self,
         x: int = 0,
@@ -182,8 +171,7 @@ class Slider(Widget, Control):
         background_color: Tuple[int, int, int] = (255, 255, 255),
         value: bool = False,
         **kwargs,
-    ):
-
+    ) -> None:
         Widget.__init__(self, x=x, y=y, height=height, width=width, **kwargs)
         Control.__init__(self)
 
@@ -219,7 +207,7 @@ class Slider(Widget, Control):
 
         self._create_slider()
 
-    def _create_slider(self):
+    def _create_slider(self) -> None:
         # The main function that creates the switch display elements
         self._x_motion = self._width
         self._y_motion = 0
@@ -283,14 +271,13 @@ class Slider(Widget, Control):
 
         self._update_position()
 
-    def _get_offset_position(self, position):
-
+    def _get_offset_position(self, position) -> Tuple[int, int]:
         x_offset = int(self._x_motion * position // 2)
         y_offset = int(self._y_motion * position)
 
         return x_offset, y_offset
 
-    def _draw_position(self, position):
+    def _draw_position(self, position: Tuple[int, int]) -> None:
         # apply the "easing" function to the requested position to adjust motion
         position = easing(position)
 
@@ -301,7 +288,7 @@ class Slider(Widget, Control):
         self._switch_handle.x = self._switch_initial_x + x_offset
         self._switch_handle.y = self._switch_initial_y + y_offset
 
-    def when_selected(self, touch_point):
+    def when_selected(self, touch_point: int) -> int:
         """
         Manages internal logic when widget is selected
         """
@@ -317,7 +304,7 @@ class Slider(Widget, Control):
         self._switch_handle.x = touch_x
         return self._switch_handle.x
 
-    def when_inside(self, touch_point):
+    def when_inside(self, touch_point: int) -> bool:
         """Checks if the Widget was touched.
 
         :param touch_point: x,y location of the screen, in absolute display coordinates.
@@ -332,7 +319,7 @@ class Slider(Widget, Control):
         return self.contains((touch_x, touch_y, 0))
 
     @property
-    def value(self):
+    def value(self) -> int:
         """The current switch value (Boolean).
 
         :return: Boolean

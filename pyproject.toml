@@ -20,7 +20,6 @@ authors = [
 urls = {Homepage = "https://github.com/jposada202020/CircuitPython_slider.git"}
 keywords = [
     "hardware",
-    "micropython",
     "circuitpython",
     "graphic",
     "widget",
