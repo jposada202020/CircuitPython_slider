@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2021 Jose David
+# SPDX-FileCopyrightText: 2021-2025 Jose D. Montoya
 #
 # SPDX-License-Identifier: MIT
 """
@@ -35,10 +35,12 @@ Implementation Notes
 from adafruit_display_shapes.roundrect import RoundRect
 from adafruit_displayio_layout.widgets.widget import Widget
 from adafruit_displayio_layout.widgets.control import Control
-from adafruit_displayio_layout.widgets.easing import quadratic_easeinout as easing
+from adafruit_displayio_layout.widgets.easing import (
+    quadratic_easeinout as easing,
+)
 
 try:
-    from typing import Tuple
+    from typing import Tuple, Union
 except ImportError:
     pass
 
@@ -81,6 +83,8 @@ class Slider(Widget, Control):
      default is 2
     :param Boolean value: the initial value for the switch, default is False
 
+    :param minimum_value: the minimum value for the slider, default is 0
+    :param maximum_value: the maximum value for the slider, default is 100
 
     **Quickstart: Importing and using Slider**
 
@@ -144,6 +148,8 @@ class Slider(Widget, Control):
           the ``touch_boundary`` is used to determine the region on the Widget that returns
           `True` in the `when_inside` function.)
 
+        - **range**: :attr:`minimum_value` and :attr:`maximum_value` define the range of the slider
+
     **The Slider Widget**
 
     .. figure:: slider.png
@@ -170,28 +176,39 @@ class Slider(Widget, Control):
         outline_color: Tuple[int, int, int] = (30, 30, 30),
         background_color: Tuple[int, int, int] = (255, 255, 255),
         value: bool = False,
+        minimum_value=0,
+        maximum_value=100,
         **kwargs,
     ) -> None:
         Widget.__init__(self, x=x, y=y, height=height, width=width, **kwargs)
         Control.__init__(self)
 
+        self._min_range = minimum_value
+        self._max_range = maximum_value
+        self._touch_x = 0
+
+        # set the knob width and height
         self._knob_width = height // 2
         self._knob_height = height
 
+        # set the knob x and y positions
         self._knob_x = self._knob_width
         self._knob_y = self._knob_height
 
+        # set the slider height
         self._slider_height = height // 5
-
         self._height = self.height
 
         # pylint: disable=access-member-before-definition)
+
+        # set the width of the slider
 
         if self._width is None:
             self._width = 100
         else:
             self._width = self.width
 
+        # set the fill color, outline color, and background color
         self._fill_color = fill_color
         self._outline_color = outline_color
         self._background_color = background_color
@@ -278,6 +295,11 @@ class Slider(Widget, Control):
         return x_offset, y_offset
 
     def _draw_position(self, position: Tuple[int, int]) -> None:
+        """
+        Draw the switch at the given position.
+        :param Tuple[int, int] position: x, y position of the switch handle
+        :return: None
+        """
         # apply the "easing" function to the requested position to adjust motion
         position = easing(position)
 
@@ -291,25 +313,42 @@ class Slider(Widget, Control):
     def when_selected(self, touch_point: int) -> int:
         """
         Manages internal logic when widget is selected
+        :param int touch_point: x,y location of the screen, in absolute display coordinates.
+        :return: x position of the switch handle
+        :rtype: int
         """
 
         if touch_point[0] <= self.x + self._knob_width:
-            touch_x = touch_point[0] - self.x
+            self._touch_x = touch_point[0] - self.x
         else:
-            touch_x = touch_point[0] - self.x - self._knob_width
+            self._touch_x = touch_point[0] - self.x - self._knob_width
 
         touch_y = touch_point[1] - self.y
 
-        self.selected((touch_x, touch_y, 0))
-        self._switch_handle.x = touch_x
+        self.selected((self._touch_x, touch_y, 0))
+
+        self._switch_handle.x = self._touch_x
+
         return self._switch_handle.x
+
+    @property
+    def corrected_value(self) -> float:
+        """returns the corrected value of the slider
+        :return: float
+        """
+
+        return self.transform(
+            0,
+            self.width - self._knob_width,
+            self._min_range,
+            self._max_range,
+            self._touch_x,
+        )
 
     def when_inside(self, touch_point: int) -> bool:
         """Checks if the Widget was touched.
-
         :param touch_point: x,y location of the screen, in absolute display coordinates.
         :return: Boolean
-
         """
         touch_x = (
             touch_point[0] - self.x
@@ -321,7 +360,29 @@ class Slider(Widget, Control):
     @property
     def value(self) -> int:
         """The current switch value (Boolean).
-
         :return: Boolean
         """
         return self._value
+
+    @staticmethod
+    def transform(
+        oldrangemin: Union[float, int],
+        oldrangemax: Union[float, int],
+        newrangemin: Union[float, int],
+        newrangemax: Union[float, int],
+        value: Union[float, int],
+    ) -> Union[float, int]:
+        """
+        This function converts the original value into a new defined value in the new range
+        :param int|float oldrangemin: minimum of the original range
+        :param int|float oldrangemax: maximum of the original range
+        :param int|float newrangemin: minimum of the new range
+        :param int|float newrangemax: maximum of the new range
+        :param int|float value: value to be converted
+        :return int|float: converted value
+        """
+
+        return (
+            ((value - oldrangemin) * (newrangemax - newrangemin))
+            / (oldrangemax - oldrangemin)
+        ) + newrangemin
